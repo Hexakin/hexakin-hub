@@ -1,0 +1,214 @@
+:root {
+  --void-0: #000;
+  --void-2: #101015;
+  --bone-0: #f4f1e9;
+  --bone-1: #cdcac1;
+  --bone-2: #8c8b84;
+  --ink: #2a2a33;
+  --rise: 12px;
+  --settle: 520ms ease-out;
+  --font-body: var(--font-grotesk), "Helvetica Neue", sans-serif;
+  --font-label: var(--font-mono), "SF Mono", ui-monospace, monospace;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  height: 100%;
+  background: var(--void-0);
+  color-scheme: dark;
+}
+
+html,
+body {
+  max-width: 100vw;
+  overflow-x: hidden;
+}
+
+body {
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+  background: var(--void-0);
+  color: var(--bone-1);
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 1.0625rem;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+a:focus-visible,
+button:focus-visible {
+  outline: 2px solid var(--bone-0);
+  outline-offset: 4px;
+}
+
+.mark {
+  display: block;
+  width: 23px;
+  height: 18px;
+  flex: 0 0 auto;
+}
+
+.chrome {
+  background: var(--void-2);
+  border-bottom: 1px solid var(--ink);
+}
+
+.chrome-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 56px;
+  padding: 0 clamp(20px, 6vw, 72px);
+}
+
+.chrome-home {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  color: var(--bone-0);
+}
+
+.chrome-word {
+  font-family: var(--font-body);
+  font-weight: 500;
+  font-size: 0.8125rem;
+  letter-spacing: 0.16em;
+}
+
+.chrome-door {
+  font-family: var(--font-label);
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  color: var(--bone-2);
+}
+
+.chrome-door:hover {
+  color: var(--bone-0);
+}
+
+.stage {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: clamp(72px, 14vh, 120px) clamp(20px, 6vw, 72px) clamp(64px, 12vh, 96px);
+}
+
+.settle {
+  animation: settle var(--settle) both;
+}
+
+.settle-line {
+  animation: settle var(--settle) 80ms both;
+}
+
+.settle-doors {
+  animation: settle var(--settle) 140ms both;
+}
+
+@keyframes settle {
+  from {
+    opacity: 0;
+    transform: translateY(var(--rise));
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.identity {
+  display: grid;
+  gap: 18px;
+  max-width: 28rem;
+  color: var(--bone-0);
+}
+
+.identity .mark {
+  color: var(--bone-0);
+}
+
+.wordmark {
+  font-family: var(--font-body);
+  font-weight: 500;
+  font-size: clamp(2.5rem, 7vw, 3.75rem);
+  line-height: 0.95;
+  letter-spacing: 0.06em;
+  color: var(--bone-0);
+}
+
+.line {
+  max-width: 28ch;
+  font-weight: 400;
+  font-size: 1.0625rem;
+  line-height: 1.45;
+  color: var(--bone-1);
+}
+
+.doors {
+  list-style: none;
+  margin-top: 48px;
+  display: grid;
+  gap: 0;
+  width: max-content;
+}
+
+.door {
+  display: inline-block;
+  padding: 10px 0 8px;
+  font-family: var(--font-body);
+  font-weight: 500;
+  font-size: 1.125rem;
+  letter-spacing: 0.02em;
+  color: var(--bone-1);
+  border-bottom: 2px solid var(--ink);
+}
+
+.door:hover,
+.door:focus-visible {
+  color: var(--bone-0);
+  border-bottom-color: var(--bone-0);
+}
+
+.floor {
+  padding: 22px clamp(20px, 6vw, 72px) 28px;
+  border-top: 1px solid var(--ink);
+  font-family: var(--font-label);
+  font-size: 0.6875rem;
+  letter-spacing: 0.04em;
+  color: var(--bone-2);
+}
+
+.floor a {
+  color: var(--bone-2);
+  border-bottom: 1px solid var(--ink);
+}
+
+.floor a:hover {
+  color: var(--bone-1);
+  border-bottom-color: var(--bone-1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .settle,
+  .settle-line,
+  .settle-doors {
+    animation: none;
+  }
+}
