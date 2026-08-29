@@ -1,19 +1,15 @@
 import Link from "next/link";
-import { Mark } from "@/components/mark";
 
 export default function NotFound() {
   return (
-    <main className="stage">
-      <div className="identity settle">
-        <Mark />
-        <h1 className="wordmark">Gone.</h1>
-      </div>
-      <p className="line settle-line">This page is not here.</p>
-      <nav aria-label="Doors">
-        <ul className="doors settle-doors">
-          <li>
-            <Link className="door" href="/">
-              Home
+    <main className="index">
+      <h1 className="visually-hidden">Gone.</h1>
+      <p className="strap">This page is not here.</p>
+      <nav aria-label="Home">
+        <ul className="index-doors">
+          <li className="index-slot">
+            <Link className="index-row" href="/">
+              <span className="index-label">Home</span>
             </Link>
           </li>
         </ul>
