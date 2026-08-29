@@ -16,7 +16,7 @@ function DoorGlossLine({ gloss }: { gloss: DoorGloss }) {
 function doorRel(door: Door) {
   switch (door.kind) {
     case "leave":
-      return "noopener noreferrer";
+      return undefined;
     case "cut":
       return undefined;
     default: {
