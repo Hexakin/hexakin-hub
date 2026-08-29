@@ -3,6 +3,7 @@ export const SITE_NAME = "HEXAKIN";
 export const SITE_LINE = "build what you love, love what you build";
 export const MUSIC_HREF = "https://music.hexakin.com";
 export const HILLMADE_HREF = "https://hillmade.uk";
+export const GROKBOT_HREF = "https://grokbot.studio";
 
 export const socials = [
   { label: "X", href: "https://x.com/Hexakin" },

@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { Mark } from "@/components/mark";
-import { HILLMADE_HREF, MUSIC_HREF, socials } from "@/lib/site";
+import { GROKBOT_HREF, HILLMADE_HREF, MUSIC_HREF, socials } from "@/lib/site";
 
 export function SiteHeader() {
   return (
@@ -24,6 +24,8 @@ export function SiteFooter() {
       <p>
         © Hexakin · Built in the open by{" "}
         <a href={HILLMADE_HREF}>Hillmade</a>
+        {" · "}
+        <a href={GROKBOT_HREF}>grokbot.studio</a>
       </p>
       <nav aria-label="Hexakin on the web">
         <ul className="floor-socials">
