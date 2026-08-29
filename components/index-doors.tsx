@@ -8,7 +8,7 @@ function DoorGlossLine({ gloss }: { gloss: DoorGloss }) {
       return null;
     default: {
       const _exhaustive: never = gloss;
-      return _exhaustive;
+      return null;
     }
   }
 }
@@ -21,7 +21,7 @@ function doorRel(door: Door) {
       return undefined;
     default: {
       const _exhaustive: never = door;
-      return _exhaustive;
+      return undefined;
     }
   }
 }
