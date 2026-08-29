@@ -8,7 +8,7 @@ function DoorGlossLine({ gloss }: { gloss: DoorGloss }) {
       return null;
     default: {
       const _exhaustive: never = gloss;
-      return _exhaustive;
+      return null;
     }
   }
 }
@@ -16,12 +16,12 @@ function DoorGlossLine({ gloss }: { gloss: DoorGloss }) {
 function doorRel(door: Door) {
   switch (door.kind) {
     case "leave":
-      return "noopener noreferrer";
+      return undefined;
     case "cut":
       return undefined;
     default: {
       const _exhaustive: never = door;
-      return _exhaustive;
+      return undefined;
     }
   }
 }
