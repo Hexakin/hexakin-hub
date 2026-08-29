@@ -1,5 +1,6 @@
+import type { ReactNode } from "react";
 import type { Metadata } from "next";
-import { Space_Grotesk, Space_Mono } from "next/font/google";
+import { Space_Grotesk } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 import { SiteFooter, SiteHeader } from "@/components/chrome";
 import { SITE_LINE, SITE_NAME, SITE_URL } from "@/lib/site";
@@ -7,15 +8,8 @@ import "./globals.css";
 
 const grotesk = Space_Grotesk({
   subsets: ["latin"],
-  weight: ["400", "500"],
+  weight: ["400", "500", "700"],
   variable: "--font-grotesk",
-  display: "swap",
-});
-
-const mono = Space_Mono({
-  subsets: ["latin"],
-  weight: ["400"],
-  variable: "--font-mono",
   display: "swap",
 });
 
@@ -48,9 +42,13 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({ children }: LayoutProps<"/">) {
+export default function RootLayout({
+  children,
+}: Readonly<{
+  children: ReactNode;
+}>) {
   return (
-    <html lang="en" className={`${grotesk.variable} ${mono.variable}`}>
+    <html lang="en" className={grotesk.variable}>
       <body>
         <SiteHeader />
         {children}
