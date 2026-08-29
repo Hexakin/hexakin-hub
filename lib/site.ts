@@ -4,6 +4,12 @@ export const SITE_LINE = "Songs, tools, and things you can actually use.";
 export const MUSIC_HREF = "https://music.hexakin.com";
 export const HILLMADE_HREF = "https://hillmade.uk";
 
+export const socials = [
+  { label: "X", href: "https://x.com/Hexakin" },
+  { label: "YouTube", href: "https://www.youtube.com/@Hexakin" },
+  { label: "TikTok", href: "https://www.tiktok.com/@hexakin" },
+] as const;
+
 export const doors = [
   {
     label: "Music",
