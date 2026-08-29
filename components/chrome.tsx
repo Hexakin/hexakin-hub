@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { Mark } from "@/components/mark";
-import { GROKBOT_HREF, HILLMADE_HREF, MUSIC_HREF, socials } from "@/lib/site";
+import { doors, GROKBOT_HREF, HILLMADE_HREF, socials } from "@/lib/site";
 
 export function SiteHeader() {
   return (
@@ -10,9 +10,13 @@ export function SiteHeader() {
           <Mark />
           <span className="chrome-word">HEXAKIN</span>
         </Link>
-        <a className="chrome-door" href={MUSIC_HREF}>
-          Music
-        </a>
+        <nav aria-label="Doors">
+          {doors.map((door) => (
+            <a key={door.href} className="chrome-door" href={door.href}>
+              {door.label}
+            </a>
+          ))}
+        </nav>
       </div>
     </header>
   );
