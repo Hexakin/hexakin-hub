@@ -16,4 +16,8 @@ export const doors = [
     label: "Music",
     href: MUSIC_HREF,
   },
+  {
+    label: "Grok Bot Studios",
+    href: GROKBOT_HREF,
+  },
 ] as const;
