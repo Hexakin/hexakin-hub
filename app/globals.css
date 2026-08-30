@@ -123,6 +123,15 @@ button:focus-visible {
   border-bottom: 1px solid var(--ink);
 }
 
+.hub {
+  flex: 0 0 auto;
+  padding: 18px var(--gutter);
+  font-size: 0.8125rem;
+  letter-spacing: 0.01em;
+  color: var(--bone-2);
+  border-bottom: 1px solid var(--ink);
+}
+
 .index-doors {
   list-style: none;
   flex: 1 0 auto;
