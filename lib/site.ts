@@ -1,4 +1,5 @@
 export const SITE_URL = "https://www.hexakin.com";
+export const SITE_CANONICAL = "https://www.hexakin.com/";
 export const SITE_NAME = "HEXAKIN";
 export const SITE_TITLE = "HEXAKIN: the public hub by Hillmade";
 export const SITE_LINE = "build what you love, love what you build";

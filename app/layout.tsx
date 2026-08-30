@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 import { Space_Grotesk } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 import { SiteFooter, SiteHeader } from "@/components/chrome";
-import { SITE_META, SITE_TITLE, SITE_URL } from "@/lib/site";
+import { SITE_CANONICAL, SITE_META, SITE_TITLE, SITE_URL } from "@/lib/site";
 import "./globals.css";
 
 const grotesk = Space_Grotesk({
@@ -21,11 +21,11 @@ export const metadata: Metadata = {
   authors: [{ name: "Hexakin", url: SITE_URL }],
   creator: "Hexakin",
   alternates: {
-    canonical: SITE_URL,
+    canonical: SITE_CANONICAL,
   },
   openGraph: {
     type: "website",
-    url: SITE_URL,
+    url: SITE_CANONICAL,
     siteName: "Hexakin",
     title: SITE_TITLE,
     description: SITE_META,
