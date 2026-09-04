@@ -1,5 +1,5 @@
 import { ImageResponse } from "next/og";
-import { SITE_LINE, SITE_NAME } from "@/lib/site";
+import { SITE_HUB, SITE_LINE, SITE_NAME } from "@/lib/site";
 
 export const alt = "HEXAKIN";
 export const size = { width: 1200, height: 630 };
@@ -15,38 +15,38 @@ export default function OpenGraphImage() {
           display: "flex",
           flexDirection: "column",
           justifyContent: "center",
-          background: "#000000",
+          background: "#050505",
           color: "#F4F1E9",
           padding: "80px 96px",
         }}
       >
         <div
           style={{
-            fontSize: 18,
-            letterSpacing: 10,
-            color: "#CDCAC1",
-          }}
-        >
-          XX
-        </div>
-        <div
-          style={{
-            marginTop: 20,
-            fontSize: 72,
-            fontWeight: 500,
-            letterSpacing: 8,
+            fontSize: 84,
+            fontWeight: 700,
+            letterSpacing: -4,
+            color: "#A8A49A",
           }}
         >
           {SITE_NAME}
         </div>
         <div
           style={{
-            marginTop: 24,
+            marginTop: 20,
             fontSize: 28,
-            color: "#CDCAC1",
+            color: "#F4F1E9",
           }}
         >
           {SITE_LINE}
+        </div>
+        <div
+          style={{
+            marginTop: 28,
+            fontSize: 18,
+            color: "#A8A49A",
+          }}
+        >
+          {SITE_HUB}
         </div>
       </div>
     ),

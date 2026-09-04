@@ -1,6 +1,6 @@
 # hexakin.com
 
-Public hub. Night Bench. Music lives at [music.hexakin.com](https://music.hexakin.com).
+Public hub. Music lives at [music.hexakin.com](https://music.hexakin.com).
 
 ## Local
 

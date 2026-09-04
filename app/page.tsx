@@ -1,12 +1,15 @@
+import { CastWordmark } from "@/components/cast-wordmark";
 import { IndexDoors } from "@/components/index-doors";
-import { doors, SITE_HUB, SITE_LINE, SITE_NAME } from "@/lib/site";
+import { doors, SITE_HUB, SITE_LINE } from "@/lib/site";
 
 export default function Home() {
   return (
-    <main className="index">
-      <h1 className="visually-hidden">{SITE_NAME}</h1>
-      <p className="strap">{SITE_LINE}</p>
-      <p className="hub">{SITE_HUB}</p>
+    <main className="stage">
+      <header className="mast">
+        <CastWordmark />
+        <p className="strap">{SITE_LINE}</p>
+        <p className="honesty">{SITE_HUB}</p>
+      </header>
       <IndexDoors doors={doors} />
     </main>
   );

@@ -32,14 +32,14 @@ export type Door =
 export const doors = [
   {
     kind: "cut",
-    label: "Music",
+    label: "MUSIC",
     href: MUSIC_HREF,
     gloss: { kind: "clause", text: "songs, the shop, the catalogue" },
   },
   {
     kind: "leave",
-    label: "Grok Bot Studios",
+    label: "GROK BOT STUDIOS",
     href: GROKBOT_HREF,
-    gloss: { kind: "clause", text: "one bot builds you a studio" },
+    gloss: { kind: "clause", text: "unofficial, not xAI" },
   },
 ] as const satisfies readonly Door[];

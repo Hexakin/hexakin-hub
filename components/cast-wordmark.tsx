@@ -1,0 +1,147 @@
+"use client";
+
+import { useEffect, useRef, useState } from "react";
+import {
+  buildMetalField,
+  CRAWL_PERIOD_MS,
+  measureWord,
+  paintMetal,
+  POUR_MS,
+  prefersReducedMotion,
+  stampWord,
+  type MetalField,
+} from "@/lib/cast-metal";
+import { SITE_NAME } from "@/lib/site";
+
+type Phase = "type" | "metal";
+
+export function CastWordmark() {
+  const typeRef = useRef<HTMLSpanElement>(null);
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const [phase, setPhase] = useState<Phase>("type");
+
+  useEffect(() => {
+    const type = typeRef.current;
+    const canvas = canvasRef.current;
+    if (!type || !canvas) {
+      return;
+    }
+
+    let field: MetalField | null = null;
+    let frame = 0;
+    let start = 0;
+    let running = true;
+    let token = 0;
+    const reduce = prefersReducedMotion();
+
+    const paint = (now: number) => {
+      if (!running || !field) {
+        return;
+      }
+      if (start === 0) {
+        start = now;
+      }
+      const elapsed = now - start;
+      const pour = reduce ? 1 : Math.min(1, elapsed / POUR_MS);
+      const ctx = canvas.getContext("2d", { alpha: true });
+      if (!ctx) {
+        setPhase("type");
+        return;
+      }
+      paintMetal(ctx, field, reduce ? CRAWL_PERIOD_MS / 2 : elapsed, pour);
+      if (!reduce && !document.hidden) {
+        frame = window.requestAnimationFrame(paint);
+      }
+    };
+
+    const build = async () => {
+      const current = ++token;
+      try {
+        if (document.fonts?.ready) {
+          await document.fonts.ready;
+        }
+        if (!running || current !== token) {
+          return;
+        }
+
+        const rect = type.getBoundingClientRect();
+        const dpr = Math.min(window.devicePixelRatio || 1, 2);
+        const width = Math.max(1, Math.round(rect.width * dpr));
+        const height = Math.max(1, Math.round(rect.height * dpr));
+        canvas.width = width;
+        canvas.height = height;
+
+        const ctx = canvas.getContext("2d", { alpha: true });
+        if (!ctx) {
+          setPhase("type");
+          return;
+        }
+
+        const word = measureWord(type);
+        if (!word.text.trim()) {
+          setPhase("type");
+          return;
+        }
+
+        stampWord(
+          ctx,
+          width,
+          height,
+          scaleFont(word.font, dpr),
+          scaleSpacing(word.letterSpacing, dpr),
+          word.text,
+        );
+        field = buildMetalField(ctx, width, height);
+        start = 0;
+        setPhase("metal");
+        frame = window.requestAnimationFrame(paint);
+      } catch {
+        setPhase("type");
+      }
+    };
+
+    const ro = new ResizeObserver(() => {
+      window.cancelAnimationFrame(frame);
+      void build();
+    });
+    ro.observe(type);
+
+    const onVisible = () => {
+      if (!document.hidden && !reduce && running && field) {
+        window.cancelAnimationFrame(frame);
+        frame = window.requestAnimationFrame(paint);
+      }
+    };
+    document.addEventListener("visibilitychange", onVisible);
+
+    return () => {
+      running = false;
+      window.cancelAnimationFrame(frame);
+      ro.disconnect();
+      document.removeEventListener("visibilitychange", onVisible);
+    };
+  }, []);
+
+  return (
+    <h1 className="cast-word" data-metal={phase === "metal" ? "on" : "off"}>
+      <span ref={typeRef} className="cast-word-type">
+        {SITE_NAME}
+      </span>
+      <canvas ref={canvasRef} className="cast-word-metal" aria-hidden="true" />
+    </h1>
+  );
+}
+
+function scaleFont(font: string, dpr: number) {
+  return font.replace(
+    /(\d+(?:\.\d+)?)px/,
+    (_, px: string) => `${Number(px) * dpr}px`,
+  );
+}
+
+function scaleSpacing(letterSpacing: string, dpr: number) {
+  if (letterSpacing.endsWith("px")) {
+    return `${parseFloat(letterSpacing) * dpr}px`;
+  }
+  return letterSpacing;
+}

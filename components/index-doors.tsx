@@ -1,27 +1,15 @@
 import type { Door, DoorGloss } from "@/lib/site";
+import { LeaveAnchor } from "@/components/leave-anchor";
 
 function DoorGlossLine({ gloss }: { gloss: DoorGloss }) {
   switch (gloss.kind) {
     case "clause":
-      return <span className="index-gloss">{gloss.text}</span>;
+      return <span className="plate-gloss">{gloss.text}</span>;
     case "none":
       return null;
     default: {
-      const _exhaustive: never = gloss;
+      void (gloss satisfies never);
       return null;
-    }
-  }
-}
-
-function doorRel(door: Door) {
-  switch (door.kind) {
-    case "leave":
-      return undefined;
-    case "cut":
-      return undefined;
-    default: {
-      const _exhaustive: never = door;
-      return undefined;
     }
   }
 }
@@ -29,13 +17,13 @@ function doorRel(door: Door) {
 export function IndexDoors({ doors }: { doors: readonly Door[] }) {
   return (
     <nav aria-label="Doors">
-      <ul className="index-doors">
+      <ul className="doors">
         {doors.map((door) => (
-          <li key={door.href} className="index-slot">
-            <a className="index-row" href={door.href} rel={doorRel(door)}>
-              <span className="index-label">{door.label}</span>
+          <li key={door.href} className="door-slot">
+            <LeaveAnchor door={door} className="plate">
+              <span className="plate-name">{door.label}</span>
               <DoorGlossLine gloss={door.gloss} />
-            </a>
+            </LeaveAnchor>
           </li>
         ))}
       </ul>
