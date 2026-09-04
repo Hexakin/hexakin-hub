@@ -106,7 +106,7 @@ button:focus-visible {
   position: relative;
   display: block;
   width: max-content;
-  max-width: none;
+  max-width: calc(100vw - 32px);
   margin: 0 auto;
   overflow: visible;
 }
@@ -114,11 +114,11 @@ button:focus-visible {
 .cast-word-type {
   display: block;
   width: max-content;
-  max-width: none;
-  padding: 0.16em 0.32em 0.18em;
+  max-width: calc(100vw - 32px);
+  padding: 0.16em 0.28em 0.18em;
   font-family: var(--font-body);
   font-weight: 700;
-  font-size: clamp(2.35rem, 9.2vw, 6.8rem);
+  font-size: clamp(1.75rem, calc((100vw - 40px) / 6.4), 6.8rem);
   line-height: 0.94;
   letter-spacing: -0.035em;
   text-transform: uppercase;
