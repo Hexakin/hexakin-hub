@@ -1,9 +1,11 @@
 import type { ReactNode } from "react";
 import type { Metadata } from "next";
+import Script from "next/script";
 import { IBM_Plex_Mono, Space_Grotesk } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 import { SiteFooter } from "@/components/chrome";
 import { NoVercelChrome } from "@/components/no-vercel-chrome";
+import { CSP_POLICY, STRIP_VERCEL_CHROME_SCRIPT } from "@/lib/no-vercel-chrome";
 import { SITE_CANONICAL, SITE_META, SITE_TITLE, SITE_URL } from "@/lib/site";
 import "./globals.css";
 
@@ -57,7 +59,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${grotesk.variable} ${mono.variable}`}>
+      <head>
+        <meta httpEquiv="Content-Security-Policy" content={CSP_POLICY} />
+      </head>
       <body>
+        <Script id="no-vercel-chrome" strategy="beforeInteractive">
+          {STRIP_VERCEL_CHROME_SCRIPT}
+        </Script>
         {children}
         <SiteFooter />
         <NoVercelChrome />

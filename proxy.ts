@@ -5,7 +5,11 @@ import { SKIP_TOOLBAR_HEADERS } from "@/lib/no-vercel-chrome";
 export function proxy(_request: NextRequest) {
   const response = NextResponse.next();
   for (const header of SKIP_TOOLBAR_HEADERS) {
-    response.headers.set(header.key, header.value);
+    if (header.key.toLowerCase() === "content-security-policy") {
+      response.headers.append(header.key, header.value);
+    } else {
+      response.headers.set(header.key, header.value);
+    }
   }
   return response;
 }

@@ -280,20 +280,27 @@ button:focus-visible {
 
 vercel-live-feedback,
 vercel-toolbar,
+vercel-live-feedback-modal,
 #vercel-live-feedback,
 #vercel-toolbar,
 #__vercel_toolbar,
 [data-vercel-toolbar],
 [data-vercel-live],
+[id*="vercel-live"],
+[id*="vercel-toolbar"],
 [class*="vercel-live"],
 [class*="vercel-toolbar"],
-iframe[src*="vercel.live"] {
+[class*="vercel_live"],
+[class*="vercel_toolbar"],
+iframe[src*="vercel.live"],
+iframe[src*="_next-live"] {
   display: none !important;
   visibility: hidden !important;
   pointer-events: none !important;
   width: 0 !important;
   height: 0 !important;
   overflow: hidden !important;
+  opacity: 0 !important;
 }
 
 .leave-cut {

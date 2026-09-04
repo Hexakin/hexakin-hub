@@ -9,6 +9,10 @@
         {
           "key": "Content-Security-Policy",
           "value": "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://va.vercel-scripts.com; frame-src 'none'; frame-ancestors 'none'; object-src 'none'"
+        },
+        {
+          "key": "Content-Security-Policy",
+          "value": "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://va.vercel-scripts.com; frame-src 'none'; object-src 'none'"
         }
       ]
     }
