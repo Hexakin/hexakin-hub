@@ -92,6 +92,13 @@ export function CastWordmark() {
         const ink = wordInkSize(probe, font, spacing, word.text);
         const width = Math.max(1, Math.round(rect.width * dpr), ink.width);
         const height = Math.max(1, Math.round(rect.height * dpr), ink.height);
+        const maxCss = Math.max(160, window.innerWidth - 32);
+        const cssW = Math.min(maxCss, width / dpr);
+        const cssH = height / dpr;
+        canvas.style.width = `${cssW}px`;
+        canvas.style.height = `${cssH}px`;
+        type.style.minWidth = `${cssW}px`;
+        type.style.minHeight = `${cssH}px`;
         if (field && width === lastW && height === lastH) {
           if (!reduce && !document.hidden && running) {
             window.cancelAnimationFrame(frame);

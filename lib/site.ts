@@ -34,7 +34,7 @@ export const doors = [
     kind: "cut",
     label: "MUSIC",
     href: MUSIC_HREF,
-    gloss: { kind: "clause", text: "songs, the shop, the catalogue" },
+    gloss: { kind: "clause", text: "music.hexakin.com" },
   },
   {
     kind: "leave",

@@ -1,7 +1,7 @@
 export const PEWTER = {
-  highlight: [244, 241, 233] as const,
-  mid: [168, 164, 154] as const,
-  shadow: [42, 42, 51] as const,
+  highlight: [248, 228, 190] as const,
+  mid: [168, 158, 140] as const,
+  shadow: [32, 28, 24] as const,
 };
 
 export const CRAWL_PERIOD_MS = 12000;
@@ -123,8 +123,8 @@ export function wordInkSize(
   const right = Math.abs(metrics.actualBoundingBoxRight ?? metrics.width);
   const ascent = Math.abs(metrics.actualBoundingBoxAscent ?? 0);
   const descent = Math.abs(metrics.actualBoundingBoxDescent ?? 0);
-  const padX = Math.max(20, Math.round(metrics.width * 0.05));
-  const padY = Math.max(12, Math.round((ascent + descent) * 0.1));
+  const padX = Math.max(28, Math.round(metrics.width * 0.08));
+  const padY = Math.max(16, Math.round((ascent + descent) * 0.14));
   return {
     width: Math.max(1, Math.ceil(Math.max(metrics.width, left + right) + padX * 2)),
     height: Math.max(1, Math.ceil(ascent + descent + padY * 2)),
@@ -179,11 +179,14 @@ export function buildMetalField(
       if (alpha[i] < 8) {
         continue;
       }
-      const coarse = fbm(x * 0.055, y * 0.07);
-      const fine = valueNoise(x * 0.22, y * 0.24);
-      const crater = Math.max(0, coarse - 0.62) * 1.8;
-      pit[i] = clamp(coarse * 0.72 + fine * 0.28 + crater, 0, 1);
-      heightMap[i] = relief[i] * 1.22 - pit[i] * 0.62 * (alpha[i] / 255);
+      const coarse = fbm(x * 0.038, y * 0.05);
+      const fine = valueNoise(x * 0.28, y * 0.31);
+      const micro = valueNoise(x * 0.92, y * 0.88);
+      const crater = Math.max(0, coarse - 0.52) * 2.6;
+      const pour = Math.sin(x * 0.021 + y * 0.017) * 0.08;
+      pit[i] = clamp(coarse * 0.58 + fine * 0.26 + micro * 0.16 + crater, 0, 1);
+      heightMap[i] =
+        relief[i] * 1.34 + pour - pit[i] * 0.78 * (alpha[i] / 255);
       solidIndex.push(i);
     }
   }
@@ -201,10 +204,10 @@ export function buildMetalField(
       const down = heightMap[Math.min(height - 1, y + 1) * width + x];
       const dx = left - right;
       const dy = up - down;
-      const inv = 1 / Math.hypot(dx * 1.35, dy * 1.35, 0.55);
-      nx[i] = dx * 1.35 * inv;
-      ny[i] = dy * 1.35 * inv;
-      nz[i] = 0.55 * inv;
+      const inv = 1 / Math.hypot(dx * 1.55, dy * 1.55, 0.42);
+      nx[i] = dx * 1.55 * inv;
+      ny[i] = dy * 1.55 * inv;
+      nz[i] = 0.42 * inv;
     }
   }
 
@@ -268,9 +271,9 @@ export function paintMetal(
   const span = width + height;
   const crawl = ((elapsed % CRAWL_PERIOD_MS) / CRAWL_PERIOD_MS) * span;
   const pourLine = pour >= 1 ? height + 32 : pour * height;
-  const lx = -0.48;
-  const ly = -0.58;
-  const lz = 0.66;
+  const lx = -0.66;
+  const ly = -0.74;
+  const lz = 0.36;
 
   for (let s = 0; s < solid.length; s++) {
     const i = solid[s];
@@ -290,19 +293,22 @@ export function paintMetal(
     const invH = 1 / Math.hypot(hx, hy, hz);
     const spec = Math.pow(
       Math.max(0, nx[i] * hx * invH + ny[i] * hy * invH + nz[i] * hz * invH),
-      14,
+      22,
     );
+    const rim = Math.max(0, -ny[i]) ** 3 * 0.55;
     const band = x * 0.82 + y * 0.22 - crawl;
     const crawlLite =
-      Math.max(0, 1 - Math.abs(band) / (width * 0.22)) ** 1.15 * 0.95;
-    const pitted = 1 - pit[i] * 0.42;
+      Math.max(0, 1 - Math.abs(band) / (width * 0.18)) ** 1.25 * 0.72;
+    const pitted = 1 - pit[i] * 0.55;
 
-    const tone = pewterTone((ndotl * 0.82 + spec * 0.2) * pitted + crawlLite);
-    const molten = pour < 1 && y > lip - 14 ? (14 - (lip - y)) / 14 : 0;
+    const tone = pewterTone(
+      (ndotl * 0.7 + spec * 0.34 + rim) * pitted + crawlLite,
+    );
+    const molten = pour < 1 && y > lip - 16 ? (16 - (lip - y)) / 16 : 0;
     const o = i * 4;
-    data[o] = mixChannel(tone[0], PEWTER.highlight[0], molten * 0.7);
-    data[o + 1] = mixChannel(tone[1], PEWTER.highlight[1], molten * 0.55);
-    data[o + 2] = mixChannel(tone[2], 196, molten * 0.22);
+    data[o] = mixChannel(tone[0], 255, molten * 0.55 + spec * 0.12);
+    data[o + 1] = mixChannel(tone[1], 214, molten * 0.38 + spec * 0.06);
+    data[o + 2] = mixChannel(tone[2], 150, molten * 0.12);
     data[o + 3] = a;
   }
 

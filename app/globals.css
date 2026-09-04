@@ -80,6 +80,7 @@ button:focus-visible {
   justify-content: center;
   gap: clamp(1.75rem, 4.5vh, 3rem);
   min-width: 0;
+  overflow: visible;
   padding: clamp(2.4rem, 8vh, 5.5rem) var(--gutter) clamp(1.5rem, 4vh, 2.5rem);
 }
 
@@ -89,6 +90,8 @@ button:focus-visible {
   align-items: center;
   text-align: center;
   gap: 0.85rem;
+  overflow: visible;
+  min-width: 0;
 }
 
 .mark {
@@ -101,8 +104,9 @@ button:focus-visible {
 
 .cast-word {
   position: relative;
+  display: block;
   width: max-content;
-  max-width: 100%;
+  max-width: none;
   margin: 0 auto;
   overflow: visible;
 }
@@ -110,13 +114,13 @@ button:focus-visible {
 .cast-word-type {
   display: block;
   width: max-content;
-  max-width: 100%;
-  padding: 0.1em 0.16em 0.12em;
+  max-width: none;
+  padding: 0.16em 0.32em 0.18em;
   font-family: var(--font-body);
   font-weight: 700;
-  font-size: clamp(2.5rem, 10vw, 7.2rem);
+  font-size: clamp(2.35rem, 9.2vw, 6.8rem);
   line-height: 0.94;
-  letter-spacing: -0.04em;
+  letter-spacing: -0.035em;
   text-transform: uppercase;
   white-space: nowrap;
   overflow: visible;
@@ -129,9 +133,9 @@ button:focus-visible {
 
 .cast-word-metal {
   position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
   pointer-events: none;
 }
 
@@ -161,15 +165,16 @@ button:focus-visible {
 
 .doors {
   list-style: none;
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: 1fr;
   gap: 0.85rem;
-  width: min(100%, 52rem);
+  width: min(100%, 56rem);
   margin: 0 auto;
 }
 
 .door-slot {
   display: flex;
+  min-width: 0;
 }
 
 .plate {
@@ -178,27 +183,37 @@ button:focus-visible {
   flex: 1 1 auto;
   flex-direction: column;
   justify-content: center;
-  gap: 0.4rem;
+  align-items: center;
+  gap: 0.45rem;
   width: 100%;
   min-height: 5.75rem;
-  padding: 1.15rem 2.1rem 1.25rem;
+  padding: 1.2rem 1.4rem 1.3rem;
   border-radius: 0;
   color: var(--bone);
-  background-color: var(--plate);
+  text-align: center;
+  background-color: #1a1916;
   background-image:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='p'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23p)' opacity='0.28'/%3E%3C/svg%3E"),
     repeating-linear-gradient(
       180deg,
-      rgba(244, 241, 233, 0.035) 0,
-      rgba(244, 241, 233, 0.035) 1px,
-      transparent 1px,
+      rgba(244, 228, 196, 0.05) 0,
+      rgba(244, 228, 196, 0.02) 1px,
+      transparent 2px,
       transparent 3px
     ),
-    linear-gradient(180deg, #2c2c32 0%, #1b1b20 48%, #121216 100%);
+    linear-gradient(165deg, #3c3932 0%, #221f1b 46%, #12110f 100%);
+  background-blend-mode: overlay, normal, normal;
   box-shadow:
-    inset 1px 1px 0 rgba(244, 241, 233, 0.26),
-    inset -1px -1px 0 rgba(0, 0, 0, 0.68);
+    0 2px 0 #050505,
+    0 4px 10px rgba(0, 0, 0, 0.55),
+    inset 0 1px 0 rgba(248, 228, 190, 0.32),
+    inset 1px 0 0 rgba(248, 228, 190, 0.12),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.62);
   transform: translateY(0);
-  animation: rack 0.38s ease both;
+  transition:
+    transform 0.18s ease,
+    box-shadow 0.18s ease;
+  animation: rack 0.38s ease backwards;
 }
 
 .door-slot:nth-child(1) .plate {
@@ -213,21 +228,24 @@ button:focus-visible {
 .plate:focus-visible {
   transform: translateY(-2px);
   box-shadow:
-    inset 1px 1px 0 rgba(244, 241, 233, 0.5),
-    inset -1px -1px 0 rgba(0, 0, 0, 0.78);
+    0 4px 0 #050505,
+    0 8px 16px rgba(0, 0, 0, 0.6),
+    inset 0 1px 0 rgba(248, 228, 190, 0.55),
+    inset 1px 0 0 rgba(248, 228, 190, 0.22),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.72);
 }
 
 .plate-name {
   font-family: var(--font-plate);
   font-weight: 700;
-  font-size: clamp(1.55rem, 4.4vw, 2.55rem);
+  font-size: clamp(1.2rem, 3.6vw, 2.1rem);
   line-height: 0.95;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.07em;
   text-transform: uppercase;
   color: var(--bone);
   text-shadow:
-    0 1px 0 rgba(0, 0, 0, 0.7),
-    0 -1px 0 rgba(244, 241, 233, 0.12);
+    0 1px 0 rgba(0, 0, 0, 0.72),
+    0 -1px 0 rgba(248, 228, 190, 0.16);
 }
 
 .plate-gloss {
@@ -287,11 +305,25 @@ button:focus-visible {
 @keyframes rack {
   from {
     opacity: 0;
-    transform: translateY(14px);
   }
   to {
     opacity: 1;
-    transform: none;
+  }
+}
+
+@media (min-width: 720px) {
+  .doors {
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
+
+  .plate {
+    min-height: 7.4rem;
+    padding: 1.45rem 1.6rem 1.55rem;
+  }
+
+  .plate-name {
+    font-size: clamp(1.15rem, 2.1vw, 1.7rem);
   }
 }
 
