@@ -282,6 +282,21 @@ button:focus-visible {
   border-bottom-color: var(--bone);
 }
 
+vercel-live-feedback,
+vercel-toolbar,
+#vercel-live-feedback,
+#vercel-toolbar,
+[data-vercel-toolbar],
+[data-vercel-live],
+iframe[src*="vercel.live"] {
+  display: none !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+  width: 0 !important;
+  height: 0 !important;
+  overflow: hidden !important;
+}
+
 .leave-cut {
   position: fixed;
   inset: 0;
@@ -360,7 +375,7 @@ button:focus-visible {
 
   .plate:hover,
   .plate:focus-visible {
-    transform: translateY(-2px);
+    transform: translateY(-3px);
   }
 
   .leave-cut {

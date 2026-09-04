@@ -1,17 +1,15 @@
 import type { NextConfig } from "next";
-
-// Keep Vercel Live / feedback toolbar off this public hub (prod and preview).
-const skipToolbar = {
-  key: "x-vercel-skip-toolbar",
-  value: "1",
-} as const;
+import { SKIP_TOOLBAR_HEADERS } from "./lib/no-vercel-chrome";
 
 const nextConfig: NextConfig = {
+  env: {
+    VERCEL_PREVIEW_FEEDBACK_ENABLED: "0",
+  },
   async headers() {
     return [
       {
         source: "/:path*",
-        headers: [skipToolbar],
+        headers: [...SKIP_TOOLBAR_HEADERS],
       },
     ];
   },
