@@ -85,21 +85,14 @@ export function CastWordmark() {
           return;
         }
 
-        type.style.minWidth = "";
-        type.style.minHeight = "";
-        void type.offsetWidth;
-
         const dpr = Math.min(window.devicePixelRatio || 1, 2);
         const font = scaleFont(word.font, dpr);
         const spacing = scaleSpacing(word.letterSpacing, dpr);
         const ink = wordInkSize(probe, font, spacing, word.text);
         const width = ink.width;
         const height = ink.height;
-        const maxCss = Math.max(160, window.innerWidth - 32);
-        const cssW = Math.min(maxCss, width / dpr);
-        const cssH = height / dpr;
-        canvas.style.width = `${cssW}px`;
-        canvas.style.height = `${cssH}px`;
+        canvas.style.width = "100%";
+        canvas.style.height = "100%";
         if (field && width === lastW && height === lastH) {
           if (!reduce && !document.hidden && running) {
             window.cancelAnimationFrame(frame);
@@ -133,6 +126,14 @@ export function CastWordmark() {
       void build();
     });
     ro.observe(type);
+    if (type.parentElement) {
+      ro.observe(type.parentElement);
+    }
+
+    const onResize = () => {
+      void build();
+    };
+    window.addEventListener("resize", onResize);
 
     const onVisible = () => {
       if (!document.hidden && !reduce && running && field) {
@@ -146,17 +147,20 @@ export function CastWordmark() {
       running = false;
       window.cancelAnimationFrame(frame);
       ro.disconnect();
+      window.removeEventListener("resize", onResize);
       document.removeEventListener("visibilitychange", onVisible);
     };
   }, []);
 
   return (
-    <h1 className="cast-word" data-metal={phase === "metal" ? "on" : "off"}>
-      <span ref={typeRef} className="cast-word-type">
-        {SITE_NAME}
-      </span>
-      <canvas ref={canvasRef} className="cast-word-metal" aria-hidden="true" />
-    </h1>
+    <div className="cast-word-frame">
+      <h1 className="cast-word" data-metal={phase === "metal" ? "on" : "off"}>
+        <span ref={typeRef} className="cast-word-type">
+          {SITE_NAME}
+        </span>
+        <canvas ref={canvasRef} className="cast-word-metal" aria-hidden="true" />
+      </h1>
+    </div>
   );
 }
 

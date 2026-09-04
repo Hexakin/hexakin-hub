@@ -102,11 +102,18 @@ button:focus-visible {
   margin: 0 auto 0.15rem;
 }
 
+.cast-word-frame {
+  width: 100%;
+  max-width: min(100%, 56rem);
+  margin: 0 auto;
+  container-type: inline-size;
+}
+
 .cast-word {
   position: relative;
   display: block;
   width: max-content;
-  max-width: calc(100vw - 32px);
+  max-width: 100%;
   margin: 0 auto;
   overflow: visible;
 }
@@ -114,13 +121,13 @@ button:focus-visible {
 .cast-word-type {
   display: block;
   width: max-content;
-  max-width: calc(100vw - 32px);
-  padding: 0.16em 0.28em 0.18em;
+  max-width: 100%;
+  padding: 0.14em 0.22em 0.16em;
   font-family: var(--font-body);
   font-weight: 700;
-  font-size: clamp(1.75rem, calc((100vw - 40px) / 6.4), 6.8rem);
+  font-size: clamp(1.55rem, calc(100cqw / 8.2), 6.8rem);
   line-height: 0.94;
-  letter-spacing: -0.035em;
+  letter-spacing: -0.03em;
   text-transform: uppercase;
   white-space: nowrap;
   overflow: visible;
@@ -133,9 +140,10 @@ button:focus-visible {
 
 .cast-word-metal {
   position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
   pointer-events: none;
 }
 
@@ -226,7 +234,7 @@ button:focus-visible {
 
 .plate:hover,
 .plate:focus-visible {
-  transform: translateY(-2px);
+  transform: translateY(-3px);
   box-shadow:
     0 4px 0 #050505,
     0 8px 16px rgba(0, 0, 0, 0.6),
