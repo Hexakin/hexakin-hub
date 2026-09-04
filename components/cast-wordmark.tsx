@@ -136,20 +136,27 @@ export function CastWordmark() {
     };
     window.addEventListener("resize", onResize);
 
-    const onVisible = () => {
-      if (!document.hidden && !reduce && running && field) {
+    const resumeMetal = () => {
+      if (!running || reduce || document.hidden) {
+        return;
+      }
+      if (field) {
         window.cancelAnimationFrame(frame);
         frame = window.requestAnimationFrame(paint);
+        return;
       }
+      void build();
     };
-    document.addEventListener("visibilitychange", onVisible);
+    document.addEventListener("visibilitychange", resumeMetal);
+    window.addEventListener("pageshow", resumeMetal);
 
     return () => {
       running = false;
       window.cancelAnimationFrame(frame);
       ro.disconnect();
       window.removeEventListener("resize", onResize);
-      document.removeEventListener("visibilitychange", onVisible);
+      document.removeEventListener("visibilitychange", resumeMetal);
+      window.removeEventListener("pageshow", resumeMetal);
     };
   }, []);
 
