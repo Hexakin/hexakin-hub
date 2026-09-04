@@ -264,9 +264,9 @@ export function paintMetal(
       Math.max(0, nx[i] * hx * invH + ny[i] * hy * invH + nz[i] * hz * invH),
       14,
     );
-    const band = x * 0.78 + y * 0.32 - crawl;
+    const band = x * 0.82 + y * 0.22 - crawl;
     const crawlLite =
-      Math.max(0, 1 - Math.abs(band) / (width * 0.16)) ** 1.35 * 0.72;
+      Math.max(0, 1 - Math.abs(band) / (width * 0.22)) ** 1.15 * 0.95;
     const pitted = 1 - pit[i] * 0.42;
 
     const tone = pewterTone((ndotl * 0.82 + spec * 0.2) * pitted + crawlLite);

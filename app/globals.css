@@ -128,6 +128,10 @@ button:focus-visible {
   pointer-events: none;
 }
 
+.cast-word[data-metal="on"] .cast-word-metal {
+  animation: pour-clip 1.1s ease both;
+}
+
 .strap {
   max-width: 36rem;
   font-family: var(--font-body);
@@ -253,6 +257,15 @@ button:focus-visible {
   animation: temperature-cut 350ms ease-in forwards;
 }
 
+@keyframes pour-clip {
+  from {
+    clip-path: inset(0 0 100% 0);
+  }
+  to {
+    clip-path: inset(0);
+  }
+}
+
 @keyframes etch {
   from {
     opacity: 0;
@@ -293,7 +306,8 @@ button:focus-visible {
 @media (prefers-reduced-motion: reduce) {
   .strap,
   .honesty,
-  .plate {
+  .plate,
+  .cast-word[data-metal="on"] .cast-word-metal {
     animation: none;
   }
 

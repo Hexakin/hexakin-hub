@@ -71,8 +71,13 @@ export function CastWordmark() {
         const width = Math.max(1, Math.round(rect.width * dpr));
         const height = Math.max(1, Math.round(rect.height * dpr));
         if (field && width === lastW && height === lastH) {
+          if (!reduce && !document.hidden && running) {
+            window.cancelAnimationFrame(frame);
+            frame = window.requestAnimationFrame(paint);
+          }
           return;
         }
+        window.cancelAnimationFrame(frame);
         canvas.width = width;
         canvas.height = height;
 
@@ -108,7 +113,6 @@ export function CastWordmark() {
     };
 
     const ro = new ResizeObserver(() => {
-      window.cancelAnimationFrame(frame);
       void build();
     });
     ro.observe(type);
