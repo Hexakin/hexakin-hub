@@ -37,15 +37,12 @@ body {
   display: flex;
   flex-direction: column;
   background-color: var(--void-1);
-  background-image:
-    repeating-linear-gradient(
-      90deg,
-      rgba(244, 241, 233, 0.018) 0,
-      rgba(244, 241, 233, 0.018) 1px,
-      transparent 1px,
-      transparent 4px
-    ),
-    radial-gradient(ellipse at 28% 18%, #141416 0%, #050505 46%, #000 100%);
+  background-image: radial-gradient(
+    ellipse at 28% 18%,
+    #0c0c0e 0%,
+    #050505 52%,
+    #000 100%
+  );
   color: var(--pewter);
   font-family: var(--font-body);
   font-weight: 400;
@@ -60,7 +57,7 @@ body::before {
   position: fixed;
   inset: 0;
   pointer-events: none;
-  opacity: 0.16;
+  opacity: 0.07;
   mix-blend-mode: overlay;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23g)' opacity='0.55'/%3E%3C/svg%3E");
 }
@@ -92,6 +89,14 @@ button:focus-visible {
   align-items: center;
   text-align: center;
   gap: 0.85rem;
+}
+
+.mark {
+  display: block;
+  width: 22px;
+  height: 17px;
+  color: var(--bone);
+  margin: 0 auto 0.15rem;
 }
 
 .cast-word {
@@ -170,22 +175,17 @@ button:focus-visible {
   color: var(--bone);
   background-color: var(--plate);
   background-image:
-    radial-gradient(circle at 16px 16px, #6d6a63 0 2.5px, #2a2a33 3.4px, transparent 4.2px),
-    radial-gradient(circle at calc(100% - 16px) 16px, #6d6a63 0 2.5px, #2a2a33 3.4px, transparent 4.2px),
-    radial-gradient(circle at 16px calc(100% - 16px), #6d6a63 0 2.5px, #2a2a33 3.4px, transparent 4.2px),
-    radial-gradient(circle at calc(100% - 16px) calc(100% - 16px), #6d6a63 0 2.5px, #2a2a33 3.4px, transparent 4.2px),
     repeating-linear-gradient(
       180deg,
-      rgba(244, 241, 233, 0.05) 0,
-      rgba(244, 241, 233, 0.05) 1px,
+      rgba(244, 241, 233, 0.035) 0,
+      rgba(244, 241, 233, 0.035) 1px,
       transparent 1px,
       transparent 3px
     ),
-    linear-gradient(180deg, #2f2f36 0%, #1b1b20 48%, #121216 100%);
+    linear-gradient(180deg, #2c2c32 0%, #1b1b20 48%, #121216 100%);
   box-shadow:
-    inset 1px 1px 0 rgba(244, 241, 233, 0.22),
-    inset -1px -1px 0 rgba(0, 0, 0, 0.62),
-    2px 2px 0 #000;
+    inset 1px 1px 0 rgba(244, 241, 233, 0.26),
+    inset -1px -1px 0 rgba(0, 0, 0, 0.68);
   transform: translateY(0);
   animation: rack 0.38s ease both;
 }
@@ -202,9 +202,8 @@ button:focus-visible {
 .plate:focus-visible {
   transform: translateY(-2px);
   box-shadow:
-    inset 1px 1px 0 rgba(244, 241, 233, 0.46),
-    inset -1px -1px 0 rgba(0, 0, 0, 0.7),
-    2px 4px 0 #000;
+    inset 1px 1px 0 rgba(244, 241, 233, 0.5),
+    inset -1px -1px 0 rgba(0, 0, 0, 0.78);
 }
 
 .plate-name {
@@ -300,7 +299,7 @@ button:focus-visible {
 
   .plate:hover,
   .plate:focus-visible {
-    transform: none;
+    transform: translateY(-2px);
   }
 
   .leave-cut {

@@ -5,7 +5,7 @@ export const PEWTER = {
 };
 
 export const CRAWL_PERIOD_MS = 12000;
-export const POUR_MS = 820;
+export const POUR_MS = 1100;
 
 export type MetalField = {
   width: number;
@@ -15,6 +15,7 @@ export type MetalField = {
   nx: Float32Array;
   ny: Float32Array;
   nz: Float32Array;
+  pit: Float32Array;
   solid: Uint32Array;
 };
 
@@ -141,6 +142,7 @@ export function buildMetalField(
   const nx = new Float32Array(count);
   const ny = new Float32Array(count);
   const nz = new Float32Array(count);
+  const pit = new Float32Array(count);
   const solidIndex: number[] = [];
 
   for (let y = 0; y < height; y++) {
@@ -149,8 +151,11 @@ export function buildMetalField(
       if (alpha[i] < 8) {
         continue;
       }
-      const pit = fbm(x * 0.07, y * 0.085);
-      heightMap[i] = relief[i] * 1.15 - pit * 0.38 * (alpha[i] / 255);
+      const coarse = fbm(x * 0.055, y * 0.07);
+      const fine = valueNoise(x * 0.22, y * 0.24);
+      const crater = Math.max(0, coarse - 0.62) * 1.8;
+      pit[i] = clamp(coarse * 0.72 + fine * 0.28 + crater, 0, 1);
+      heightMap[i] = relief[i] * 1.22 - pit[i] * 0.62 * (alpha[i] / 255);
       solidIndex.push(i);
     }
   }
@@ -168,10 +173,10 @@ export function buildMetalField(
       const down = heightMap[Math.min(height - 1, y + 1) * width + x];
       const dx = left - right;
       const dy = up - down;
-      const inv = 1 / Math.hypot(dx, dy, 0.42);
-      nx[i] = dx * inv;
-      ny[i] = dy * inv;
-      nz[i] = 0.42 * inv;
+      const inv = 1 / Math.hypot(dx * 1.35, dy * 1.35, 0.55);
+      nx[i] = dx * 1.35 * inv;
+      ny[i] = dy * 1.35 * inv;
+      nz[i] = 0.55 * inv;
     }
   }
 
@@ -183,6 +188,7 @@ export function buildMetalField(
     nx,
     ny,
     nz,
+    pit,
     solid: Uint32Array.from(solidIndex),
   };
 }
@@ -193,8 +199,8 @@ function mixChannel(a: number, b: number, t: number) {
 
 function pewterTone(light: number) {
   const lift = clamp(light, 0, 1);
-  const shadowToMid = clamp(lift * 1.7, 0, 1);
-  const midToHi = clamp((lift - 0.42) / 0.58, 0, 1);
+  const shadowToMid = clamp(lift * 1.35, 0, 1);
+  const midToHi = clamp((lift - 0.62) / 0.38, 0, 1) * 0.72;
   return [
     mixChannel(
       mixChannel(PEWTER.shadow[0], PEWTER.mid[0], shadowToMid),
@@ -216,8 +222,9 @@ function pewterTone(light: number) {
 
 function pourWave(x: number, time: number) {
   return (
-    Math.sin(x * 0.045 + time * 0.008) * 5 +
-    Math.sin(x * 0.11 + 1.7) * 2.4
+    Math.sin(x * 0.038 + time * 0.01) * 11 +
+    Math.sin(x * 0.09 + 1.7) * 5.5 +
+    Math.sin(x * 0.17 + time * 0.004) * 2.2
   );
 }
 
@@ -227,14 +234,15 @@ export function paintMetal(
   elapsed: number,
   pour: number,
 ) {
-  const { width, height, alpha, nx, ny, nz, solid } = field;
+  const { width, height, alpha, nx, ny, nz, pit, solid } = field;
   const image = ctx.createImageData(width, height);
   const data = image.data;
-  const crawl = ((elapsed % CRAWL_PERIOD_MS) / CRAWL_PERIOD_MS) * (width + height);
-  const pourLine = pour >= 1 ? height + 24 : pour * height;
-  const lx = -0.52;
-  const ly = -0.62;
-  const lz = 0.58;
+  const span = width + height;
+  const crawl = ((elapsed % CRAWL_PERIOD_MS) / CRAWL_PERIOD_MS) * span;
+  const pourLine = pour >= 1 ? height + 32 : pour * height;
+  const lx = -0.48;
+  const ly = -0.58;
+  const lz = 0.66;
 
   for (let s = 0; s < solid.length; s++) {
     const i = solid[s];
@@ -254,18 +262,19 @@ export function paintMetal(
     const invH = 1 / Math.hypot(hx, hy, hz);
     const spec = Math.pow(
       Math.max(0, nx[i] * hx * invH + ny[i] * hy * invH + nz[i] * hz * invH),
-      28,
+      14,
     );
-    const band = x * 0.72 + y * 0.28 - crawl;
+    const band = x * 0.78 + y * 0.32 - crawl;
     const crawlLite =
-      Math.max(0, 1 - Math.abs(band) / (width * 0.09)) ** 2 * 0.38;
+      Math.max(0, 1 - Math.abs(band) / (width * 0.16)) ** 1.35 * 0.72;
+    const pitted = 1 - pit[i] * 0.42;
 
-    const tone = pewterTone(ndotl * 0.88 + spec * 0.42 + crawlLite);
-    const molten = pour < 1 && y > lip - 7 ? (7 - (lip - y)) / 7 : 0;
+    const tone = pewterTone((ndotl * 0.82 + spec * 0.2) * pitted + crawlLite);
+    const molten = pour < 1 && y > lip - 14 ? (14 - (lip - y)) / 14 : 0;
     const o = i * 4;
-    data[o] = mixChannel(tone[0], PEWTER.highlight[0], molten * 0.55);
-    data[o + 1] = mixChannel(tone[1], PEWTER.highlight[1], molten * 0.45);
-    data[o + 2] = mixChannel(tone[2], 210, molten * 0.2);
+    data[o] = mixChannel(tone[0], PEWTER.highlight[0], molten * 0.7);
+    data[o + 1] = mixChannel(tone[1], PEWTER.highlight[1], molten * 0.55);
+    data[o + 2] = mixChannel(tone[2], 196, molten * 0.22);
     data[o + 3] = a;
   }
 

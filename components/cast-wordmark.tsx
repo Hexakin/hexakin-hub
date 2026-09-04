@@ -32,6 +32,8 @@ export function CastWordmark() {
     let start = 0;
     let running = true;
     let token = 0;
+    let lastW = 0;
+    let lastH = 0;
     const reduce = prefersReducedMotion();
 
     const paint = (now: number) => {
@@ -68,6 +70,9 @@ export function CastWordmark() {
         const dpr = Math.min(window.devicePixelRatio || 1, 2);
         const width = Math.max(1, Math.round(rect.width * dpr));
         const height = Math.max(1, Math.round(rect.height * dpr));
+        if (field && width === lastW && height === lastH) {
+          return;
+        }
         canvas.width = width;
         canvas.height = height;
 
@@ -92,6 +97,8 @@ export function CastWordmark() {
           word.text,
         );
         field = buildMetalField(ctx, width, height);
+        lastW = width;
+        lastH = height;
         start = 0;
         setPhase("metal");
         frame = window.requestAnimationFrame(paint);
