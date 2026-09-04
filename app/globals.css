@@ -101,18 +101,25 @@ button:focus-visible {
 
 .cast-word {
   position: relative;
-  width: min(100%, 18ch);
+  width: max-content;
+  max-width: 100%;
   margin: 0 auto;
+  overflow: visible;
 }
 
 .cast-word-type {
   display: block;
+  width: max-content;
+  max-width: 100%;
+  padding: 0.1em 0.16em 0.12em;
   font-family: var(--font-body);
   font-weight: 700;
-  font-size: clamp(3.4rem, 13vw, 8.6rem);
-  line-height: 0.86;
-  letter-spacing: -0.045em;
+  font-size: clamp(2.5rem, 10vw, 7.2rem);
+  line-height: 0.94;
+  letter-spacing: -0.04em;
   text-transform: uppercase;
+  white-space: nowrap;
+  overflow: visible;
   color: var(--bone);
 }
 

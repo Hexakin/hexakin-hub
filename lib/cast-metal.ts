@@ -99,6 +99,38 @@ export function measureWord(el: HTMLElement) {
   };
 }
 
+export function applyWordFont(
+  ctx: CanvasRenderingContext2D,
+  font: string,
+  letterSpacing: string,
+) {
+  ctx.font = font;
+  if ("letterSpacing" in ctx) {
+    (ctx as CanvasRenderingContext2D & { letterSpacing: string }).letterSpacing =
+      letterSpacing;
+  }
+}
+
+export function wordInkSize(
+  ctx: CanvasRenderingContext2D,
+  font: string,
+  letterSpacing: string,
+  text: string,
+) {
+  applyWordFont(ctx, font, letterSpacing);
+  const metrics = ctx.measureText(text);
+  const left = Math.abs(metrics.actualBoundingBoxLeft ?? 0);
+  const right = Math.abs(metrics.actualBoundingBoxRight ?? metrics.width);
+  const ascent = Math.abs(metrics.actualBoundingBoxAscent ?? 0);
+  const descent = Math.abs(metrics.actualBoundingBoxDescent ?? 0);
+  const padX = Math.max(20, Math.round(metrics.width * 0.05));
+  const padY = Math.max(12, Math.round((ascent + descent) * 0.1));
+  return {
+    width: Math.max(1, Math.ceil(Math.max(metrics.width, left + right) + padX * 2)),
+    height: Math.max(1, Math.ceil(ascent + descent + padY * 2)),
+  };
+}
+
 export function stampWord(
   ctx: CanvasRenderingContext2D,
   width: number,
@@ -109,15 +141,11 @@ export function stampWord(
 ) {
   ctx.save();
   ctx.clearRect(0, 0, width, height);
-  ctx.font = font;
+  applyWordFont(ctx, font, letterSpacing);
   ctx.textAlign = "center";
   ctx.textBaseline = "middle";
-  if ("letterSpacing" in ctx) {
-    (ctx as CanvasRenderingContext2D & { letterSpacing: string }).letterSpacing =
-      letterSpacing;
-  }
   ctx.fillStyle = "#fff";
-  ctx.fillText(text, width / 2, height / 2 + height * 0.02);
+  ctx.fillText(text, width / 2, height / 2);
   ctx.restore();
 }
 

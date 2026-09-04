@@ -9,6 +9,7 @@ import {
   POUR_MS,
   prefersReducedMotion,
   stampWord,
+  wordInkSize,
   type MetalField,
 } from "@/lib/cast-metal";
 import { SITE_NAME } from "@/lib/site";
@@ -59,17 +60,38 @@ export function CastWordmark() {
     const build = async () => {
       const current = ++token;
       try {
-        if (document.fonts?.ready) {
-          await document.fonts.ready;
+        const word = measureWord(type);
+        if (!word.text.trim()) {
+          setPhase("type");
+          return;
+        }
+        try {
+          if (document.fonts?.load) {
+            await document.fonts.load(word.font);
+          }
+          if (document.fonts?.ready) {
+            await document.fonts.ready;
+          }
+        } catch {
+          /* keep the measured fallback font */
         }
         if (!running || current !== token) {
           return;
         }
 
+        const probe = canvas.getContext("2d", { alpha: true });
+        if (!probe) {
+          setPhase("type");
+          return;
+        }
+
         const rect = type.getBoundingClientRect();
         const dpr = Math.min(window.devicePixelRatio || 1, 2);
-        const width = Math.max(1, Math.round(rect.width * dpr));
-        const height = Math.max(1, Math.round(rect.height * dpr));
+        const font = scaleFont(word.font, dpr);
+        const spacing = scaleSpacing(word.letterSpacing, dpr);
+        const ink = wordInkSize(probe, font, spacing, word.text);
+        const width = Math.max(1, Math.round(rect.width * dpr), ink.width);
+        const height = Math.max(1, Math.round(rect.height * dpr), ink.height);
         if (field && width === lastW && height === lastH) {
           if (!reduce && !document.hidden && running) {
             window.cancelAnimationFrame(frame);
@@ -87,20 +109,7 @@ export function CastWordmark() {
           return;
         }
 
-        const word = measureWord(type);
-        if (!word.text.trim()) {
-          setPhase("type");
-          return;
-        }
-
-        stampWord(
-          ctx,
-          width,
-          height,
-          scaleFont(word.font, dpr),
-          scaleSpacing(word.letterSpacing, dpr),
-          word.text,
-        );
+        stampWord(ctx, width, height, font, spacing, word.text);
         field = buildMetalField(ctx, width, height);
         lastW = width;
         lastH = height;
