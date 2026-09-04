@@ -147,10 +147,6 @@ button:focus-visible {
   pointer-events: none;
 }
 
-.cast-word[data-metal="on"] .cast-word-metal {
-  animation: pour-clip 1.1s ease both;
-}
-
 .strap {
   max-width: 36rem;
   font-family: var(--font-body);
@@ -286,8 +282,11 @@ vercel-live-feedback,
 vercel-toolbar,
 #vercel-live-feedback,
 #vercel-toolbar,
+#__vercel_toolbar,
 [data-vercel-toolbar],
 [data-vercel-live],
+[class*="vercel-live"],
+[class*="vercel-toolbar"],
 iframe[src*="vercel.live"] {
   display: none !important;
   visibility: hidden !important;
@@ -303,15 +302,6 @@ iframe[src*="vercel.live"] {
   z-index: 80;
   pointer-events: none;
   animation: temperature-cut 350ms ease-in forwards;
-}
-
-@keyframes pour-clip {
-  from {
-    clip-path: inset(0 0 100% 0);
-  }
-  to {
-    clip-path: inset(0);
-  }
 }
 
 @keyframes etch {
@@ -368,8 +358,7 @@ iframe[src*="vercel.live"] {
 @media (prefers-reduced-motion: reduce) {
   .strap,
   .honesty,
-  .plate,
-  .cast-word[data-metal="on"] .cast-word-metal {
+  .plate {
     animation: none;
   }
 

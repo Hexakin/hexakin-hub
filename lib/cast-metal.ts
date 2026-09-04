@@ -282,29 +282,30 @@ export function paintMetal(
     const a = alpha[i];
 
     const lip = pourLine + pourWave(x, elapsed);
-    if (y > lip) {
-      continue;
-    }
-
+    const waiting = y > lip;
     const ndotl = Math.max(0, nx[i] * lx + ny[i] * ly + nz[i] * lz);
     const hx = lx;
     const hy = ly;
     const hz = lz + 1;
     const invH = 1 / Math.hypot(hx, hy, hz);
-    const spec = Math.pow(
-      Math.max(0, nx[i] * hx * invH + ny[i] * hy * invH + nz[i] * hz * invH),
-      22,
-    );
-    const rim = Math.max(0, -ny[i]) ** 3 * 0.55;
+    const spec = waiting
+      ? 0
+      : Math.pow(
+          Math.max(0, nx[i] * hx * invH + ny[i] * hy * invH + nz[i] * hz * invH),
+          22,
+        );
+    const rim = Math.max(0, -ny[i]) ** 3 * (waiting ? 0.22 : 0.55);
     const band = x * 0.82 + y * 0.22 - crawl;
-    const crawlLite =
-      Math.max(0, 1 - Math.abs(band) / (width * 0.18)) ** 1.25 * 0.72;
-    const pitted = 1 - pit[i] * 0.55;
+    const crawlLite = waiting
+      ? 0
+      : Math.max(0, 1 - Math.abs(band) / (width * 0.18)) ** 1.25 * 0.72;
+    const pitted = 1 - pit[i] * (waiting ? 0.7 : 0.55);
+    const light = waiting
+      ? (ndotl * 0.28 + rim) * pitted * 0.42
+      : (ndotl * 0.7 + spec * 0.34 + rim) * pitted + crawlLite;
 
-    const tone = pewterTone(
-      (ndotl * 0.7 + spec * 0.34 + rim) * pitted + crawlLite,
-    );
-    const molten = pour < 1 && y > lip - 16 ? (16 - (lip - y)) / 16 : 0;
+    const tone = pewterTone(light);
+    const molten = !waiting && pour < 1 && y > lip - 16 ? (16 - (lip - y)) / 16 : 0;
     const o = i * 4;
     data[o] = mixChannel(tone[0], 255, molten * 0.55 + spec * 0.12);
     data[o + 1] = mixChannel(tone[1], 214, molten * 0.38 + spec * 0.06);

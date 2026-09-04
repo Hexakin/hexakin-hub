@@ -115,6 +115,7 @@ export function CastWordmark() {
         lastW = width;
         lastH = height;
         start = 0;
+        paintMetal(ctx, field, reduce ? CRAWL_PERIOD_MS / 2 : 0, reduce ? 1 : 0);
         setPhase("metal");
         frame = window.requestAnimationFrame(paint);
       } catch {
