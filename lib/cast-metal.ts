@@ -301,7 +301,7 @@ export function paintMetal(
       : Math.max(0, 1 - Math.abs(band) / (width * 0.18)) ** 1.25 * 0.72;
     const pitted = 1 - pit[i] * (waiting ? 0.7 : 0.55);
     const light = waiting
-      ? (ndotl * 0.28 + rim) * pitted * 0.42
+      ? (ndotl * 0.48 + rim) * pitted * 0.78
       : (ndotl * 0.7 + spec * 0.34 + rim) * pitted + crawlLite;
 
     const tone = pewterTone(light);

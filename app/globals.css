@@ -145,6 +145,13 @@ button:focus-visible {
   height: 100%;
   display: block;
   pointer-events: none;
+  opacity: 0;
+  visibility: hidden;
+}
+
+.cast-word[data-metal="on"] .cast-word-metal {
+  opacity: 1;
+  visibility: visible;
 }
 
 .strap {

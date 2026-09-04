@@ -52,6 +52,9 @@ export function CastWordmark() {
         return;
       }
       paintMetal(ctx, field, reduce ? CRAWL_PERIOD_MS / 2 : elapsed, pour);
+      if (reduce || pour >= 1) {
+        setPhase("metal");
+      }
       if (!reduce && !document.hidden) {
         frame = window.requestAnimationFrame(paint);
       }
@@ -60,9 +63,9 @@ export function CastWordmark() {
     const build = async () => {
       const current = ++token;
       try {
-        const word = measureWord(type);
+        setPhase("type");
+        let word = measureWord(type);
         if (!word.text.trim()) {
-          setPhase("type");
           return;
         }
         try {
@@ -75,7 +78,18 @@ export function CastWordmark() {
         } catch {
           /* keep the measured fallback font */
         }
+        await new Promise<void>((resolve) => {
+          window.requestAnimationFrame(() => {
+            window.requestAnimationFrame(() => resolve());
+          });
+        });
         if (!running || current !== token) {
+          return;
+        }
+
+        word = measureWord(type);
+        if (!word.text.trim()) {
+          setPhase("type");
           return;
         }
 
@@ -116,7 +130,12 @@ export function CastWordmark() {
         lastH = height;
         start = 0;
         paintMetal(ctx, field, reduce ? CRAWL_PERIOD_MS / 2 : 0, reduce ? 1 : 0);
-        setPhase("metal");
+        const box = type.getBoundingClientRect();
+        const whole =
+          field.solid.length > 0 && box.width + 2 >= (width / dpr) * 0.88;
+        if (reduce || whole) {
+          setPhase("metal");
+        }
         frame = window.requestAnimationFrame(paint);
       } catch {
         setPhase("type");
