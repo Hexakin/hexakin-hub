@@ -20,7 +20,7 @@
   --space-xxl: 80px;
   --gutter: clamp(16px, 4vw, 48px);
   --well: 42rem;
-  --well-cover: 68rem;
+  --well-cover: 86rem;
   --measure: 66ch;
   --font-display: var(--font-newsreader), "Times New Roman", serif;
   --font-body: var(--font-source-serif), Georgia, serif;
@@ -74,14 +74,14 @@ body {
 
 .void-lift {
   background: radial-gradient(
-    ellipse 78% 58% at 50% 34%,
+    ellipse 90% 70% at 50% 32%,
     var(--color-lift) 0%,
     var(--color-void) 100%
   );
 }
 
 .void-grain {
-  opacity: 0.045;
+  opacity: 0.055;
   background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
   background-size: 180px 180px;
 }
@@ -212,15 +212,16 @@ button:focus-visible,
 }
 
 .page {
-  flex: 1 0 auto;
+  flex: 0 0 auto;
   width: 100%;
-  padding: clamp(1.25rem, 4.2vh, 2.5rem) var(--gutter) var(--space-xl);
+  padding: clamp(1.35rem, 4vh, 2.35rem) var(--gutter) var(--space-lg);
 }
 
 .page-cover {
   display: flex;
   flex-direction: column;
-  padding-bottom: var(--space-lg);
+  min-height: calc(100svh - 8.75rem);
+  padding-bottom: var(--space-md);
 }
 
 .well {
@@ -230,6 +231,15 @@ button:focus-visible,
 
 .well-cover {
   width: min(100%, var(--well-cover));
+  margin-inline: auto;
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.page-cover .also {
+  margin-top: auto;
+  padding-top: clamp(1.25rem, 3vh, 2rem);
 }
 
 .kicker,
@@ -252,9 +262,9 @@ button:focus-visible,
 .kicker-tick::before {
   content: "";
   width: 2px;
-  height: 14px;
+  height: 16px;
   background: var(--color-tertiary);
-  opacity: 0.58;
+  opacity: 0.72;
   transition: opacity 180ms ease;
 }
 
@@ -399,7 +409,7 @@ button:focus-visible,
   gap: 1rem;
   position: relative;
   width: 100%;
-  padding: 1.05rem 0 1.05rem 1.15rem;
+  padding: 1.2rem 0 1.2rem 1.15rem;
   border-top: 1px solid var(--color-hairline);
   color: var(--color-primary);
   text-decoration: none;
@@ -463,12 +473,12 @@ button:focus-visible,
 
 .rule-double {
   display: block;
-  height: 3px;
+  height: 5px;
   margin-top: 1.35rem;
   background:
     linear-gradient(
-        color-mix(in srgb, var(--color-primary) 38%, transparent),
-        color-mix(in srgb, var(--color-primary) 38%, transparent)
+        color-mix(in srgb, var(--color-primary) 42%, transparent),
+        color-mix(in srgb, var(--color-primary) 42%, transparent)
       )
       0 0 / 100% 1px no-repeat,
     linear-gradient(var(--color-tertiary), var(--color-tertiary)) 0 100% / 100%
@@ -561,6 +571,15 @@ button:focus-visible,
   line-height: 1.4;
   letter-spacing: 0.02em;
   color: var(--color-secondary);
+}
+
+.floor-inner {
+  width: min(100%, var(--well));
+  margin-inline: auto;
+}
+
+body:has(.page-cover) .floor-inner {
+  width: min(100%, var(--well-cover));
 }
 
 .floor a {

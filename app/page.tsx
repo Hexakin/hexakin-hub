@@ -42,6 +42,7 @@ export default function Home() {
               <span className="rail-rule" aria-hidden="true" />
             </div>
           </Link>
+          <span className="rule-double" aria-hidden="true" />
         </article>
         <aside className="also" aria-label="Also">
           <h2 className="also-label kicker-tick">Also</h2>

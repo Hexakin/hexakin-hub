@@ -63,9 +63,11 @@ export function SiteHeader() {
 export function SiteFooter() {
   return (
     <footer className="floor">
-      <p>
-        © Hexakin · Built in the open by <a href={HILLMADE_HREF}>Hillmade</a>
-      </p>
+      <div className="floor-inner">
+        <p>
+          © Hexakin · Built in the open by <a href={HILLMADE_HREF}>Hillmade</a>
+        </p>
+      </div>
     </footer>
   );
 }
