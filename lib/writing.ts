@@ -11,6 +11,8 @@ export type Essay = {
   standfirst: string;
   xHref: string;
   paragraphs: readonly string[];
+  pullQuote?: string;
+  pullAfter?: string;
 };
 
 export const essays: readonly Essay[] = [theyDidntShipDisc2];

@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
+import Link from "next/link";
+import { Fragment } from "react";
 import { notFound } from "next/navigation";
-import { GROKBOT_HREF, MUSIC_HREF, SITE_META, SITE_URL } from "@/lib/site";
+import { SITE_META, SITE_URL } from "@/lib/site";
 import { essays, getEssay, readMinutes } from "@/lib/writing";
 
 type PageProps = {
@@ -60,28 +62,34 @@ export default async function EssayPage({ params }: PageProps) {
   const minutes = readMinutes(essay);
 
   return (
-    <main className="page">
-      <article className="article">
+    <main className="page page-essay">
+      <article className="article well" id="essay">
         <header className="article-header">
-          <p className="kicker">{essay.kicker}</p>
-          <h1 className="story-title">{essay.title}</h1>
+          <p className="kicker kicker-tick">{essay.kicker}</p>
+          <h1 className="story-title story-title-essay">
+            <span className="title-ink">{essay.title}</span>
+          </h1>
           <p className="byline">
             By {essay.byline}
             <span className="byline-meta"> · {minutes} min read</span>
           </p>
+          <span className="rule-double" aria-hidden="true" />
         </header>
         <div className="article-body">
           {essay.paragraphs.map((paragraph) => (
-            <p key={paragraph}>{paragraph}</p>
+            <Fragment key={paragraph}>
+              <p>{paragraph}</p>
+              {essay.pullQuote && paragraph === essay.pullAfter ? (
+                <blockquote className="pull">
+                  <p>{essay.pullQuote}</p>
+                </blockquote>
+              ) : null}
+            </Fragment>
           ))}
         </div>
         <footer className="article-end">
           <p>
-            Also on <a href={essay.xHref}>X</a>
-            .{" "}
-            <a href={GROKBOT_HREF}>Grokbot</a>
-            {" · "}
-            <a href={MUSIC_HREF}>Music</a>
+            <Link href="/writing">More writing</Link>
           </p>
         </footer>
       </article>

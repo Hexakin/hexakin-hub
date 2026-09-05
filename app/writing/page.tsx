@@ -16,18 +16,20 @@ export default function WritingIndex() {
 
   return (
     <main className="page">
-      <h1 className="index-title">Writing</h1>
-      <ol className="writing-index">
-        {items.map((essay) => (
-          <li key={essay.slug}>
-            <p className="kicker">{essay.kicker}</p>
-            <h2 className="story-title-sm">
-              <Link href={`/writing/${essay.slug}`}>{essay.title}</Link>
-            </h2>
-            <p className="dek">{essay.dek}</p>
-          </li>
-        ))}
-      </ol>
+      <div className="well">
+        <h1 className="index-title">Writing</h1>
+        <ol className="writing-index">
+          {items.map((essay) => (
+            <li key={essay.slug}>
+              <p className="kicker kicker-tick">{essay.kicker}</p>
+              <h2 className="story-title-sm">
+                <Link href={`/writing/${essay.slug}`}>{essay.title}</Link>
+              </h2>
+              <p className="dek">{essay.dek}</p>
+            </li>
+          ))}
+        </ol>
+      </div>
     </main>
   );
 }

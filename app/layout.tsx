@@ -8,7 +8,8 @@ import "./globals.css";
 
 const newsreader = Newsreader({
   subsets: ["latin"],
-  weight: ["600"],
+  weight: "variable",
+  axes: ["opsz"],
   variable: "--font-newsreader",
   display: "swap",
 });
@@ -22,7 +23,6 @@ const sourceSerif = Source_Serif_4({
 
 const grotesk = Space_Grotesk({
   subsets: ["latin"],
-  weight: ["500"],
   variable: "--font-grotesk",
   display: "swap",
 });
@@ -77,6 +77,8 @@ export default function RootLayout({
       className={`${newsreader.variable} ${sourceSerif.variable} ${grotesk.variable} ${mono.variable}`}
     >
       <body>
+        <div className="void-lift" aria-hidden="true" />
+        <div className="void-grain" aria-hidden="true" />
         <SiteHeader />
         {children}
         <SiteFooter />

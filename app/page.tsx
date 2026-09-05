@@ -27,28 +27,36 @@ export const metadata: Metadata = {
 
 export default function Home() {
   return (
-    <main className="page">
-      <article className="cover">
-        <p className="kicker">{featured.kicker}</p>
-        <h1 className="story-title">
-          <Link href={`/writing/${featured.slug}`}>{featured.title}</Link>
-        </h1>
-        <p className="dek">{featured.dek}</p>
-        <p className="standfirst">{featured.standfirst}</p>
-        <p className="byline">By {featured.byline}</p>
-      </article>
-      <aside className="also" aria-label="Also">
-        <h2 className="also-label">Also</h2>
-        <ul className="also-list">
-          {alsoDoors.map((door) => (
-            <li key={door.href}>
-              <a href={door.href}>
-                {door.label} — {door.gloss}
-              </a>
-            </li>
-          ))}
-        </ul>
-      </aside>
+    <main className="page page-cover">
+      <div className="well well-cover">
+        <article className="feature">
+          <Link href={`/writing/${featured.slug}`} className="feature-hit">
+            <p className="kicker kicker-tick">{featured.kicker}</p>
+            <h1 className="story-title">
+              <span className="title-ink">{featured.title}</span>
+            </h1>
+            <p className="lede">{featured.dek}</p>
+            <div className="feature-rail">
+              <p className="dek">{featured.standfirst}</p>
+              <p className="byline">By {featured.byline}</p>
+              <span className="rail-rule" aria-hidden="true" />
+            </div>
+          </Link>
+        </article>
+        <aside className="also" aria-label="Also">
+          <h2 className="also-label kicker-tick">Also</h2>
+          <ul className="also-list">
+            {alsoDoors.map((door) => (
+              <li key={door.href}>
+                <a href={door.href} className="also-row">
+                  <span className="also-name">{door.label}</span>
+                  <span className="also-gloss">{door.gloss}</span>
+                </a>
+              </li>
+            ))}
+          </ul>
+        </aside>
+      </div>
     </main>
   );
 }

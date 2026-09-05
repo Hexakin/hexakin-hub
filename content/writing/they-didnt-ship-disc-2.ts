@@ -11,6 +11,9 @@ export const theyDidntShipDisc2 = {
   standfirst:
     "Why one disc versus two — and why the middle is worse than picking a side.",
   xHref: X_DISC2_HREF,
+  pullQuote: "A day-one download is ugly for collectors. It's also a lock.",
+  pullAfter:
+    "A day-one download is ugly for collectors. It's also a lock. The ending is not on a disc that can walk out of a factory. It sits behind Square's servers until they open the gate. I don't know that this is why they did it. But if I was sitting in that room, trying to stop the last act of FF7 leaking a week early, I'd rather the second disc never existed.",
   paragraphs: [
     "Final Fantasy VII Revelation is coming on 8th April 2027 (yes, I'm English, so the date is the right way round). Today's topic is not the release date. It is how it ships.",
     "The game is coming on one disc. But not the full game. Square's own line is that you need an internet connection to download extra data before the physical version will play.",
