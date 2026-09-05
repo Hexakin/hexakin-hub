@@ -12,11 +12,11 @@ export const X_DISC2_HREF = "https://x.com/Hexakin/status/2095964870617579867";
 export type NavItem = {
   label: string;
   href: string;
-  external?: boolean;
+  external: boolean;
 };
 
 export const navItems = [
-  { label: "Writing", href: "/writing" },
+  { label: "Writing", href: "/writing", external: false },
   { label: "Grokbot", href: GROKBOT_HREF, external: true },
   { label: "Music", href: MUSIC_HREF, external: true },
 ] as const satisfies readonly NavItem[];
