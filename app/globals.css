@@ -291,6 +291,8 @@ button:focus-visible,
   background-size: 0% 1px;
   background-position: 0 100%;
   background-repeat: no-repeat;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
   transition: background-size 180ms ease;
 }
 
