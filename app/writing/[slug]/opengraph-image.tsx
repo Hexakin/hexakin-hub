@@ -1,12 +1,19 @@
 import { ImageResponse } from "next/og";
-import { featuredEssay } from "@/lib/writing";
+import { getEssay } from "@/lib/writing";
 
-export const alt = "They Didn't Ship Disc 2 — Hexakin";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
-export default function OpenGraphImage() {
-  const featured = featuredEssay();
+export default async function OpenGraphImage({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}) {
+  const { slug } = await params;
+  const essay = getEssay(slug);
+  const title = essay?.title ?? "Hexakin";
+  const kicker = essay?.kicker ?? "Essay";
+  const dek = essay?.dek ?? "Games writing from Hexakin. Building on the side.";
 
   return new ImageResponse(
     (
@@ -30,7 +37,7 @@ export default function OpenGraphImage() {
             color: "#C4A574",
           }}
         >
-          {featured.kicker}
+          {kicker}
         </div>
         <div
           style={{
@@ -41,7 +48,7 @@ export default function OpenGraphImage() {
             letterSpacing: -1,
           }}
         >
-          {featured.title}
+          {title}
         </div>
         <div
           style={{
@@ -51,7 +58,7 @@ export default function OpenGraphImage() {
             lineHeight: 1.4,
           }}
         >
-          {featured.dek}
+          {dek}
         </div>
       </div>
     ),

@@ -1,24 +1,48 @@
 import type { ReactNode } from "react";
 import type { Metadata } from "next";
-import { Space_Grotesk } from "next/font/google";
+import { Newsreader, Source_Serif_4, Space_Grotesk, Space_Mono } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 import { SiteFooter, SiteHeader } from "@/components/chrome";
 import { SITE_CANONICAL, SITE_META, SITE_TITLE, SITE_URL } from "@/lib/site";
 import "./globals.css";
 
+const newsreader = Newsreader({
+  subsets: ["latin"],
+  weight: ["600"],
+  variable: "--font-newsreader",
+  display: "swap",
+});
+
+const sourceSerif = Source_Serif_4({
+  subsets: ["latin"],
+  weight: ["400", "600"],
+  variable: "--font-source-serif",
+  display: "swap",
+});
+
 const grotesk = Space_Grotesk({
   subsets: ["latin"],
-  weight: ["400", "500", "700"],
+  weight: ["500"],
   variable: "--font-grotesk",
+  display: "swap",
+});
+
+const mono = Space_Mono({
+  subsets: ["latin"],
+  weight: ["400"],
+  variable: "--font-mono",
   display: "swap",
 });
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
-  title: SITE_TITLE,
+  title: {
+    default: SITE_TITLE,
+    template: "%s — Hexakin",
+  },
   description: SITE_META,
   applicationName: "Hexakin",
-  authors: [{ name: "Hexakin", url: SITE_URL }],
+  authors: [{ name: "Jonathan", url: SITE_URL }],
   creator: "Hexakin",
   alternates: {
     canonical: SITE_CANONICAL,
@@ -48,7 +72,10 @@ export default function RootLayout({
   children: ReactNode;
 }>) {
   return (
-    <html lang="en" className={grotesk.variable}>
+    <html
+      lang="en-GB"
+      className={`${newsreader.variable} ${sourceSerif.variable} ${grotesk.variable} ${mono.variable}`}
+    >
       <body>
         <SiteHeader />
         {children}
