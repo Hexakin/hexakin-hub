@@ -6,6 +6,7 @@ export const SITE_META = "Games writing from Hexakin. Building on the side.";
 export const MUSIC_HREF = "https://music.hexakin.com";
 export const HILLMADE_HREF = "https://hillmade.uk";
 export const GROKBOT_HREF = "https://grokbot.studio";
+export const NOTION_EXPORT_HREF = "https://notion.hexakin.com";
 export const X_HREF = "https://x.com/Hexakin";
 export const X_DISC2_HREF = "https://x.com/Hexakin/status/2095964870617579867";
 
@@ -17,6 +18,7 @@ export type NavItem = {
 
 export const navItems = [
   { label: "Writing", href: "/writing", external: false },
+  { label: "Notion Export Cleaner", href: NOTION_EXPORT_HREF, external: true },
   { label: "Grokbot", href: GROKBOT_HREF, external: true },
   { label: "Music", href: MUSIC_HREF, external: true },
 ] as const satisfies readonly NavItem[];
@@ -28,6 +30,11 @@ export type AlsoDoor = {
 };
 
 export const alsoDoors = [
+  {
+    label: "Notion Export Cleaner",
+    href: NOTION_EXPORT_HREF,
+    gloss: "notion.hexakin.com",
+  },
   {
     label: "Grokbot",
     href: GROKBOT_HREF,

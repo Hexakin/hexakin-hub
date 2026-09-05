@@ -54,8 +54,9 @@ Keep it a hub. Stop making the hub the product.
 | `/writing/they-didnt-ship-disc-2` | First essay. Ship this. |
 | Music | External door, last |
 | Grokbot | External door, middle. Label **Grokbot** (not “Grok Bot Studios”). Gloss: `unofficial, not xAI` |
+| Notion Export Cleaner | External door at https://notion.hexakin.com |
 
-Nav, left to right: **Hexakin** (home) · Writing · Grokbot · Music  
+Nav, left to right: **Hexakin** (home) · Writing · Notion Export Cleaner · Grokbot · Music  
 Footer: © Hexakin · Built in the open by [Hillmade](https://hillmade.uk)
 
 No shop, no catalogue grid, no Buttondown embed, no enforcer mascot, no album cards on this domain.
@@ -104,7 +105,7 @@ Shift is **type and layout**, not a new colour story.
 Homepage is a **front page**, not a splash:
 
 ```
-[XX] HEXAKIN                         Writing  Grokbot  Music
+[XX] HEXAKIN                         Writing  Notion Export Cleaner  Grokbot  Music
 
 ESSAY · 4 SEPTEMBER 2026
 They Didn't Ship Disc 2
@@ -113,6 +114,7 @@ Why one disc versus two — and why the middle is worse than picking a side.
 By Jonathan
 
 Also
+Notion Export Cleaner — notion.hexakin.com
 Grokbot — unofficial, not xAI
 Music — catalogue lives next door
 ```
