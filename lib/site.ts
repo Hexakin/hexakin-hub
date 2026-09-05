@@ -1,45 +1,41 @@
 export const SITE_URL = "https://www.hexakin.com";
 export const SITE_CANONICAL = "https://www.hexakin.com/";
-export const SITE_NAME = "HEXAKIN";
-export const SITE_TITLE = "HEXAKIN: the public hub by Hillmade";
-export const SITE_LINE = "build what you love, love what you build";
-export const SITE_META =
-  "Hexakin is the public hub. Hillmade is the parent. Music lives at music.hexakin.com. grokbot.studio is unofficial and not xAI.";
-export const SITE_HUB =
-  "Hexakin is the public hub. Hillmade is the parent. Music lives at music.hexakin.com. grokbot.studio is unofficial, not xAI.";
+export const SITE_NAME = "Hexakin";
+export const SITE_TITLE = "Hexakin";
+export const SITE_META = "Games writing from Hexakin. Building on the side.";
 export const MUSIC_HREF = "https://music.hexakin.com";
 export const HILLMADE_HREF = "https://hillmade.uk";
 export const GROKBOT_HREF = "https://grokbot.studio";
+export const X_HREF = "https://x.com/Hexakin";
+export const X_DISC2_HREF = "https://x.com/Hexakin/status/2095964870617579867";
 
-export type DoorGloss =
-  | { kind: "clause"; text: string }
-  | { kind: "none" };
+export type NavItem = {
+  label: string;
+  href: string;
+  external: boolean;
+};
 
-export type Door =
-  | {
-      kind: "cut";
-      label: string;
-      href: string;
-      gloss: DoorGloss;
-    }
-  | {
-      kind: "leave";
-      label: string;
-      href: string;
-      gloss: DoorGloss;
-    };
+export const navItems = [
+  { label: "Writing", href: "/writing", external: false },
+  { label: "Grokbot", href: GROKBOT_HREF, external: true },
+  { label: "Music", href: MUSIC_HREF, external: true },
+] as const satisfies readonly NavItem[];
 
-export const doors = [
+export type AlsoDoor = {
+  label: string;
+  href: string;
+  gloss: string;
+};
+
+export const alsoDoors = [
   {
-    kind: "cut",
+    label: "Grokbot",
+    href: GROKBOT_HREF,
+    gloss: "unofficial, not xAI",
+  },
+  {
     label: "Music",
     href: MUSIC_HREF,
-    gloss: { kind: "clause", text: "songs, the shop, the catalogue" },
+    gloss: "catalogue lives next door",
   },
-  {
-    kind: "leave",
-    label: "Grok Bot Studios",
-    href: GROKBOT_HREF,
-    gloss: { kind: "clause", text: "one bot builds you a studio" },
-  },
-] as const satisfies readonly Door[];
+] as const satisfies readonly AlsoDoor[];

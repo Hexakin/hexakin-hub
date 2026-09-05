@@ -2,7 +2,7 @@
   "name": "hexakin-hub",
   "version": "0.1.0",
   "private": true,
-  "description": "hexakin.com public hub — Night Bench",
+  "description": "hexakin.com public hub — games writing, building on the side",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
