@@ -42,6 +42,7 @@ export async function generateMetadata({
       authors: [essay.byline],
     },
     twitter: {
+      card: "summary_large_image",
       title: `${title} — Hexakin`,
       description,
     },

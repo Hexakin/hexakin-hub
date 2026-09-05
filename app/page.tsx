@@ -19,6 +19,7 @@ export const metadata: Metadata = {
     url: SITE_CANONICAL,
   },
   twitter: {
+    card: "summary_large_image",
     title: `${featured.title} — Hexakin`,
     description: featured.dek,
   },
