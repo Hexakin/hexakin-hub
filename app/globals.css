@@ -593,6 +593,9 @@ body:has(.page-cover) .floor-inner {
 
 .floor a {
   color: var(--color-secondary);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.18em;
 }
 
 .floor a:hover {
@@ -664,6 +667,15 @@ body:has(.page-cover) .floor-inner {
 }
 
 @media (max-width: 640px) {
+  .masthead-home,
+  .nav-item,
+  .story-title-sm a,
+  .article-end a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+  }
+
   .masthead-bar {
     flex-wrap: wrap;
     padding-top: var(--space-sm);

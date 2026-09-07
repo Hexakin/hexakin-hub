@@ -1,18 +1,28 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useSyncExternalStore } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Mark } from "@/components/mark";
 import { ReadingProgress } from "@/components/reading-progress";
 import { HILLMADE_HREF, navItems } from "@/lib/site";
 
+const subscribeToHydration = () => () => {};
+const clientSnapshot = () => true;
+const serverSnapshot = () => false;
+
 export function SiteHeader() {
   const pathname = usePathname();
+  // Static 404 HTML can be served for a different browser pathname.
+  const hydrated = useSyncExternalStore(
+    subscribeToHydration,
+    clientSnapshot,
+    serverSnapshot,
+  );
   const [scrolled, setScrolled] = useState(false);
   const writingOn =
-    pathname === "/writing" || pathname.startsWith("/writing/");
-  const onEssayPage = pathname.startsWith("/writing/");
+    hydrated && (pathname === "/writing" || pathname.startsWith("/writing/"));
+  const onEssayPage = hydrated && pathname.startsWith("/writing/");
 
   useEffect(() => {
     const onScroll = () => {
