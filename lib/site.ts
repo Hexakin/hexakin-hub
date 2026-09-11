@@ -11,6 +11,9 @@ export const DISCORD_LOG_VIEWER_HREF = "https://logs.hexakin.com";
 export const BUS_STOP_DIVISION_HREF = "https://busstop.hexakin.com";
 export const AO3_FORMATTER_HREF = "https://ao3.hexakin.com";
 export const GOODREADS_EXPORT_HREF = "https://goodreads.hexakin.com";
+export const AI_REALITY_CHECK_HREF = "https://reality.hexakin.com";
+export const CLEANSLATE_HREF = "https://cleanslate.hexakin.com";
+export const CURRICULUM_VITAI_HREF = "https://cv.hexakin.com";
 export const X_HREF = "https://x.com/Hexakin";
 export const X_DISC2_HREF = "https://x.com/Hexakin/status/2095964870617579867";
 
@@ -58,6 +61,21 @@ export const alsoDoors = [
     label: "Goodreads Export Fixer",
     href: GOODREADS_EXPORT_HREF,
     gloss: "goodreads.hexakin.com",
+  },
+  {
+    label: "AI Reality Check",
+    href: AI_REALITY_CHECK_HREF,
+    gloss: "reality.hexakin.com",
+  },
+  {
+    label: "Cleanslate",
+    href: CLEANSLATE_HREF,
+    gloss: "cleanslate.hexakin.com",
+  },
+  {
+    label: "Curriculum VitAI",
+    href: CURRICULUM_VITAI_HREF,
+    gloss: "cv.hexakin.com",
   },
   {
     label: "Grokbot",
