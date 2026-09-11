@@ -5,6 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Mark } from "@/components/mark";
 import { ReadingProgress } from "@/components/reading-progress";
+import { CONTACT_PATH } from "@/lib/contact";
 import { HILLMADE_HREF, navItems } from "@/lib/site";
 
 const subscribeToHydration = () => () => {};
@@ -76,6 +77,8 @@ export function SiteFooter() {
       <div className="floor-inner">
         <p>
           © Hexakin · Built in the open by <a href={HILLMADE_HREF}>Hillmade</a>
+          {" · "}
+          <Link href={CONTACT_PATH}>Contact</Link>
         </p>
       </div>
     </footer>
