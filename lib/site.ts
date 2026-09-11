@@ -14,6 +14,7 @@ export const GOODREADS_EXPORT_HREF = "https://goodreads.hexakin.com";
 export const AI_REALITY_CHECK_HREF = "https://reality.hexakin.com";
 export const CLEANSLATE_HREF = "https://cleanslate.hexakin.com";
 export const CURRICULUM_VITAI_HREF = "https://cv.hexakin.com";
+export const ROAST_MY_URL_HREF = "https://roast.hexakin.com";
 export const X_HREF = "https://x.com/Hexakin";
 export const X_DISC2_HREF = "https://x.com/Hexakin/status/2095964870617579867";
 
@@ -76,6 +77,11 @@ export const alsoDoors = [
     label: "Curriculum VitAI",
     href: CURRICULUM_VITAI_HREF,
     gloss: "cv.hexakin.com",
+  },
+  {
+    label: "Roast My URL",
+    href: ROAST_MY_URL_HREF,
+    gloss: "roast.hexakin.com",
   },
   {
     label: "Grokbot",
