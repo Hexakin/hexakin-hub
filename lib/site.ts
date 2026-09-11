@@ -7,7 +7,6 @@ export const MUSIC_HREF = "https://music.hexakin.com";
 export const HILLMADE_HREF = "https://hillmade.uk";
 export const GROKBOT_HREF = "https://grokbot.studio";
 export const NOTION_EXPORT_HREF = "https://notion.hexakin.com";
-export const DROPFORGE_HREF = "https://arcade.hexakin.com";
 export const DISCORD_LOG_VIEWER_HREF = "https://logs.hexakin.com";
 export const BUS_STOP_DIVISION_HREF = "https://busstop.hexakin.com";
 export const AO3_FORMATTER_HREF = "https://ao3.hexakin.com";
@@ -39,11 +38,6 @@ export const alsoDoors = [
     label: "Notion Export Cleaner",
     href: NOTION_EXPORT_HREF,
     gloss: "notion.hexakin.com",
-  },
-  {
-    label: "DropForge",
-    href: DROPFORGE_HREF,
-    gloss: "arcade",
   },
   {
     label: "Discord Log Viewer",
