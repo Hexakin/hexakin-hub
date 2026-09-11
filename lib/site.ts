@@ -14,6 +14,11 @@ export const GOODREADS_EXPORT_HREF = "https://goodreads.hexakin.com";
 export const AI_REALITY_CHECK_HREF = "https://reality.hexakin.com";
 export const CLEANSLATE_HREF = "https://cleanslate.hexakin.com";
 export const CURRICULUM_VITAI_HREF = "https://cv.hexakin.com";
+export const ROAST_MY_URL_HREF = "https://roast.hexakin.com";
+export const VIBE_IN_PUBLIC_HREF = "https://vibe.hexakin.com";
+export const HEXABOOK_HREF = "https://hexabook.hexakin.com";
+export const POLICY_PROOF_HREF = "https://policy.hexakin.com";
+export const GARDENER_HREF = "https://gardener.hexakin.com";
 export const X_HREF = "https://x.com/Hexakin";
 export const X_DISC2_HREF = "https://x.com/Hexakin/status/2095964870617579867";
 
@@ -76,6 +81,31 @@ export const alsoDoors = [
     label: "Curriculum VitAI",
     href: CURRICULUM_VITAI_HREF,
     gloss: "cv.hexakin.com",
+  },
+  {
+    label: "Roast My URL",
+    href: ROAST_MY_URL_HREF,
+    gloss: "roast.hexakin.com",
+  },
+  {
+    label: "Vibe in Public",
+    href: VIBE_IN_PUBLIC_HREF,
+    gloss: "vibe.hexakin.com",
+  },
+  {
+    label: "Hexabook",
+    href: HEXABOOK_HREF,
+    gloss: "hexabook.hexakin.com",
+  },
+  {
+    label: "Policy Proof",
+    href: POLICY_PROOF_HREF,
+    gloss: "policy.hexakin.com",
+  },
+  {
+    label: "Gardener",
+    href: GARDENER_HREF,
+    gloss: "gardener.hexakin.com",
   },
   {
     label: "Grokbot",
